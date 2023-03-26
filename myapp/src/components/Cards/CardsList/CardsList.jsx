@@ -8,7 +8,7 @@ export default function CardsList() {
 
   return (
     <div>
-      <div className="list-group">
+      <div className="list-group mt-4">
         {cards.map((card, i) => {
           return <CardsItems key={card.id} index={i} {...card} />;
         })}

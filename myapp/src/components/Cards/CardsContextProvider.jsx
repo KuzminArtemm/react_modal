@@ -1,3 +1,4 @@
+import CardForm from './CardForm';
 import CardsList from './CardsList';
 
 const { createContext, useState, useEffect } = require('react');
@@ -13,8 +14,14 @@ function CardContextProvider() {
       .then((dataFromServer) => setCards(dataFromServer));
   }, []);
 
+  const addCard = (newCard) => {
+    setCards((prevState) => [...prevState, newCard]);
+  };
+
   return (
-    <ContextCards.Provider value={{ cards }}>
+    <ContextCards.Provider value={{ cards, addCard }}>
+      <CardForm />
+      <hr />
       <CardsList />
     </ContextCards.Provider>
   );
