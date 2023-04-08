@@ -2,7 +2,21 @@ const { db } = require('../../DB');
 const { v4: uuidv4 } = require('uuid');
 
 const getAllCards = (req, res) => {
-  const cardsFromServer = db.cards.map(({ email, ...rest }) => rest);
+  console.log('>>>>>>>>>', req.query);
+
+  const filter = req.query.filter && JSON.parse(req.query.filter);
+
+  let cardsFromServer = db.cards.map(({ email, ...rest }) => rest);
+if (filter) {
+  if (filter.searchInput) {
+    const searchRegExp = new RegExp(filter.searchInput, 'i');
+    cardsFromServer = cardsFromServer.filter((card) =>
+      searchRegExp.test(card.name)
+    );
+  }
+}
+  
+
   res.json(cardsFromServer);
 };
 

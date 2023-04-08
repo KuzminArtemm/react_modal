@@ -15,4 +15,10 @@
   padding: 15px;
   border: 1px black;
   border-radius: 15px;
+  position: relative;
+}
+.cancel {
+  position: absolute;
+  right: 5px;
+  top: 5px;
 }
