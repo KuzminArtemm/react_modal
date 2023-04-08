@@ -1,0 +1,24 @@
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  background-color: whitesmoke;
+  padding: 15px;
+  border: 1px black;
+  border-radius: 15px;
+  position: relative;
+}
+.cancel {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}

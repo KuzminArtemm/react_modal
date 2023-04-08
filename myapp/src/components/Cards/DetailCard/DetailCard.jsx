@@ -1,48 +1,44 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import CardDetailSingleCard from './CardDetailSingleCard/CardDetailSingleCard';
+import DetailCardModal from './DetailCardModal';
+import useConnectServerDetail from './Hooks/useConnectServerDetail';
+import useDetailCardModal from './Hooks/useDetailCardModal';
+import './style.css';
+import withLoader from '../../hocs/withLoader';
+
+const CardDetailContext = createContext();
+
+const DetailCardWithLoader = withLoader(CardDetailSingleCard);
 
 export default function DetailCard() {
-  const { cardsId } = useParams();
-  const controller = useRef(new AbortController());
-  const [card, setCard] = useState({});
-  const navigate = useNavigate();
-  useEffect(() => {
-    fetch(
-      `http://localhost:3001/api/v1/cards/${cardsId}` /* {
-      signal: controller.current.signal
-    } */
-    )
-      .then((response) => response.json())
-      .then((dataFromserver) => setCard(dataFromserver));
+  const { closeModal, openModal, viewModal } = useDetailCardModal();
+  const { card, submitHandler, loading } = useConnectServerDetail(closeModal);
 
-    return () => {
-      controller.current.abort();
-    };
-  }, []);
+  /* const sharedValue = useMemo(
+    () => ({
+      closeModal,
+      openModal,
+      submitHandler,
+      viewModal,
+      card,
+      loading
+    }),
+    [viewModal, card]
+  ); */
 
-  const content = () => {
-    if (!card.id) {
-      return <strong>Loading...</strong>;
-    } else {
-      return (
-        <div className="card" style={{ width: '24rem' }}>
-          <img src={card.avatar} className="card-img-top r-2" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Name: {card.name}</h5>
-            <p className="card-text">{card.superability}</p>
-          </div>
-          <button
-            onClick={() => navigate(-1)}
-            type="button"
-            class="btn btn-light"
-          >
-            Return
-          </button>
-        </div>
-      );
-    }
-  };
-
-  return <div className="d-flex justify-content-center">{content()}</div>;
+  return (
+    <CardDetailContext.Provider
+      value={{ closeModal, openModal, submitHandler, viewModal, card, loading }}
+    >
+      <div className="d-flex justify-content-center">
+        <DetailCardWithLoader loading={loading} a={2} />
+        <DetailCardModal />
+      </div>
+    </CardDetailContext.Provider>
+  );
 }
+
+export const useCardDetailContext = () => {
+  return useContext(CardDetailContext);
+};

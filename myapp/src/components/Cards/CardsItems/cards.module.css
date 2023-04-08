@@ -1,3 +1,10 @@
 .card {
-    background-color: whitesmoke;
+  background-color: whitesmoke;
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 300px;
+  border-radius: 10px;
 }

@@ -1,4 +1,6 @@
+import CardForm from './CardForm';
 import CardsList from './CardsList';
+import SearchCardsForm from './SearchCardsForm';
 
 const { createContext, useState, useEffect } = require('react');
 
@@ -13,8 +15,29 @@ function CardContextProvider() {
       .then((dataFromServer) => setCards(dataFromServer));
   }, []);
 
+  const addCard = (newCard) => {
+    setCards((prevState) => [...prevState, newCard]);
+  };
+
+  const updateCards = (newCardsList) => {
+    setCards(newCardsList);
+  };
+
+  const deleteCard = (id) => {
+    fetch(`http://localhost:3001/api/v1/cards/${id}`, {
+      method: 'DELETE'
+    }).then((response) => {
+      if (response.status === 200) {
+        setCards((prevState) => prevState.filter((card) => card.id !== id));
+      }
+    });
+  };
+
   return (
-    <ContextCards.Provider value={{ cards }}>
+    <ContextCards.Provider value={{ cards, addCard, deleteCard, updateCards }}>
+      <CardForm />
+      <hr />
+      <SearchCardsForm />
       <CardsList />
     </ContextCards.Provider>
   );

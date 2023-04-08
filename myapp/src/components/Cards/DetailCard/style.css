@@ -1,0 +1,15 @@
+.card-img-top {
+  object-fit: cover;
+  border-radius: 3px;
+}
+.button {
+  display: flex;
+  width: 382.4px;
+  justify-content: space-evenly;
+}
+.first {
+  width: 150px;
+}
+.second {
+  width: 150px;
+}

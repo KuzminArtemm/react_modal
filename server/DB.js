@@ -24,6 +24,14 @@ const db = {
       avatar:
         'https://avatars.mds.yandex.net/i?id=9f7080101c8575c410ce1b9a057158f0c7cc9114-8232950-images-thumbs&n=13&exp=1'
     },
+    {
+      id: '4',
+      name: 'Spider',
+      superability: 'web',
+      email: 'spiderweb@mail.com',
+      avatar:
+        'https://avatars.mds.yandex.net/i?id=1b5acfa188763a0fa706eb925da1993a-3743543-images-thumbs&n=13&exp=1'
+    },
   ],
 };
 
